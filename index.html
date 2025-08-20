@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context Prompt Builder</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Sidebar: Templates & Components -->
+        <aside class="sidebar left-sidebar">
+            <header class="sidebar-header">
+                <h1>Context Prompt Builder</h1>
+            </header>
+            <section class="sidebar-section">
+                <h2>Templates</h2>
+                <div id="template-list" class="template-list" aria-live="polite">
+                    <!-- Templates will be dynamically inserted here -->
+                </div>
+            </section>
+            <section class="sidebar-section">
+                <h2>Components</h2>
+                <div id="component-palette" class="component-palette">
+                    <div class="component-item" draggable="true" data-component-type="heading">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5.333 19.333V5.667h5.334v4.666h3.333v3.334h5.333v5.666H5.333zM5.333 4.333h14v-1H5.333v1z"/></svg>
+                        <span>Heading</span>
+                    </div>
+                    <div class="component-item" draggable="true" data-component-type="text-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.667 18h16.666v-1.333H3.667V18zm0-4h16.666v-1.333H3.667V14zm0-4h16.666V8.667H3.667V10zm0-4h16.666V4.667H3.667V6z"/></svg>
+                        <span>Text Block</span>
+                    </div>
+                    <div class="component-item" draggable="true" data-component-type="key-value">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="m11.667 18 1.866-1.867-1.1-1.1-1.866 1.867L8.7 15.033l-1.1 1.1L11.667 18zM8.5 12.333l1.1-1.1L5.533 7.167 7.4 5.3l-1.1-1.1-4 4 4 4.033zm6.833-4.666-1.1 1.1 4.067 4.066L16.433 15l1.1 1.1 4-4-4-4.033z"/></svg>
+                        <span>Key-Value Pair</span>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <!-- Main Content: Prompt Builder Canvas -->
+        <main class="main-content">
+            <div class="canvas-header">
+                <h2>Prompt Canvas</h2>
+                <p>Drag components here to build your prompt.</p>
+            </div>
+            <div id="prompt-canvas" class="prompt-canvas" aria-live="polite">
+                <!-- Dropped components will be dynamically inserted here -->
+            </div>
+        </main>
+
+        <!-- Right Sidebar: Variables & Preview -->
+        <aside class="sidebar right-sidebar">
+            <section class="sidebar-section">
+                <h2>Variables</h2>
+                <p>Fill in the placeholders detected in your prompt.</p>
+                <form id="variable-form" class="variable-form">
+                    <!-- Dynamic variable inputs will be inserted here -->
+                </form>
+            </section>
+            <section class="sidebar-section preview-section">
+                <h2>Live Preview</h2>
+                <div class="preview-container">
+                    <pre id="live-preview" class="live-preview" aria-live="polite"></pre>
+                </div>
+            </section>
+            <footer class="sidebar-footer">
+                <button id="copy-prompt-button" class="button primary-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M15.333 3.667H5.667a1.333 1.333 0 0 0-1.334 1.333v10.667h1.334V5h9.666v-.001a1.33 1.33 0 0 0-1.333-1.332zM18.333 6.333H9a1.333 1.333 0 0 0-1.333 1.334v10.666A1.333 1.333 0 0 0 9 19.667h9.333a1.333 1.333 0 0 0 1.334-1.334V7.667A1.333 1.333 0 0 0 18.333 6.333zM18.333 18.333H9V7.667h9.333v10.666z"/></svg>
+                    <span>Copy Prompt</span>
+                </button>
+                <button id="save-template-button" class="button secondary-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M16.333 2.333H7.667a2.667 2.667 0 0 0-2.667 2.667v14a2.667 2.667 0 0 0 2.667 2.667h11.333a2.667 2.667 0 0 0 2.667-2.667v-12L16.333 2.333zM7.667 19.667V5h8v4.667h4.666v10H7.667z"/></svg>
+                    <span>Save as Template</span>
+                </button>
+            </footer>
+        </aside>
+    </div>
+
+    <!-- Save Template Modal -->
+    <div id="save-template-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+        <div class="modal-content">
+            <h2 id="modal-title">Save New Template</h2>
+            <form id="save-template-form">
+                <label for="template-name-input">Template Name</label>
+                <input type="text" id="template-name-input" required placeholder="e.g., Blog Post Outline">
+                <div class="modal-actions">
+                    <button type="button" id="cancel-save-button" class="button secondary-button">Cancel</button>
+                    <button type="submit" class="button primary-button">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="index.js" type="module"></script>
+</body>
+</html>
