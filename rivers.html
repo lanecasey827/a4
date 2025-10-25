@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>10 Longest Rivers</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#7dd3fc;
+      --muted:#94a3b8;
+      --glass: rgba(255,255,255,0.03);
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg), #071028 140%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .container{
+      width:980px;
+      max-width:100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.7);
+      padding:28px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:16px;
+    }
+    h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing: -0.2px;
+    }
+    p.lead{
+      margin:6px 0 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    button.primary{
+      background:linear-gradient(90deg,var(--accent), #60a5fa);
+      color:#04293b;
+      border:none;
+      padding:10px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 6px 18px rgba(93,173,242,0.12);
+    }
+    button.ghost{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .list{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+      margin-top:18px;
+    }
+    .river{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px;
+      background:var(--glass);
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .rank{
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      font-weight:700;
+      color:var(--accent);
+      border:1px solid rgba(125,211,252,0.12);
+    }
+    .meta{
+      flex:1;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+    .name{
+      font-weight:700;
+      font-size:15px;
+      margin-bottom:4px;
+    }
+    .desc{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .length{
+      text-align:right;
+      min-width:140px;
+      font-weight:700;
+    }
+    footer.note{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .small{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="page-root">
+    <header>
+      <div>
+        <h1>Top 10 Longest Rivers (approx.)</h1>
+        <p class="lead">List and approximate lengths. Lengths vary by measurement method and source.</p>
+      </div>
+      <div class="controls">
+        <button class="primary" id="save-btn" title="Save this HTML page locally">💾 Save this page as HTML</button>
+        <button class="ghost" id="print-btn" title="Print page">🖨 Print</button>
+      </div>
+    </header>
+
+    <section class="list" id="river-list" aria-live="polite">
+      <!-- River entries -->
+      <article class="river" data-river="Nile">
+        <div class="rank">1</div>
+        <div class="meta">
+          <div>
+            <div class="name">Nile</div>
+            <p class="desc">Flows through northeastern Africa — historically considered the longest.</p>
+          </div>
+          <div class="length">~6,650 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Amazon">
+        <div class="rank">2</div>
+        <div class="meta">
+          <div>
+            <div class="name">Amazon</div>
+            <p class="desc">South America's giant; debate exists whether it's longer than the Nile.</p>
+          </div>
+          <div class="length">~6,575 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Yangtze">
+        <div class="rank">3</div>
+        <div class="meta">
+          <div>
+            <div class="name">Yangtze</div>
+            <p class="desc">Longest river in Asia, runs across China from the Tibetan Plateau to the East China Sea.</p>
+          </div>
+          <div class="length">~6,300 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Mississippi-Missouri">
+        <div class="rank">4</div>
+        <div class="meta">
+          <div>
+            <div class="name">Mississippi–Missouri (system)</div>
+            <p class="desc">The combined Mississippi–Missouri system is the longest in North America.</p>
+          </div>
+          <div class="length">~6,275 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Yenisei">
+        <div class="rank">5</div>
+        <div class="meta">
+          <div>
+            <div class="name">Yenisei–Angara</div>
+            <p class="desc">Major river system in Siberia; drains into the Arctic Ocean.</p>
+          </div>
+          <div class="length">~5,540 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Yellow">
+        <div class="rank">6</div>
+        <div class="meta">
+          <div>
+            <div class="name">Yellow River (Huang He)</div>
+            <p class="desc">Second-longest river in China; famous for its historical importance and silt-laden waters.</p>
+          </div>
+          <div class="length">~5,464 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Ob">
+        <div class="rank">7</div>
+        <div class="meta">
+          <div>
+            <div class="name">Ob–Irtysh</div>
+            <p class="desc">Large Siberian river system flowing to the Arctic Ocean.</p>
+          </div>
+          <div class="length">~5,410 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Parana">
+        <div class="rank">8</div>
+        <div class="meta">
+          <div>
+            <div class="name">Paraná</div>
+            <p class="desc">Major river in South America; part of the Río de la Plata basin.</p>
+          </div>
+          <div class="length">~4,880 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Congo">
+        <div class="rank">9</div>
+        <div class="meta">
+          <div>
+            <div class="name">Congo</div>
+            <p class="desc">Largest river in Africa by discharge and a key central African waterway.</p>
+          </div>
+          <div class="length">~4,700 km</div>
+        </div>
+      </article>
+
+      <article class="river" data-river="Amur">
+        <div class="rank">10</div>
+        <div class="meta">
+          <div>
+            <div class="name">Amur</div>
+            <p class="desc">Forms part of the border between the Russian Far East and northeastern China.</p>
+          </div>
+          <div class="length">~4,444 km</div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="note">
+      <div>Notes: Lengths are approximate — different sources measure headwaters and tributary systems differently, so exact ranks can vary.</div>
+      <div class="small">Tip: Click the "Save this page as HTML" button to download a local copy of this HTML file (it includes the page markup).</div>
+    </footer>
+  </div>
+
+  <script>
+    // Save page as HTML
+    (function () {
+      const saveBtn = document.getElementById('save-btn');
+      const printBtn = document.getElementById('print-btn');
+
+      function downloadHTML(filename = 'longest-rivers.html') {
+        try {
+          // Ensure DOCTYPE preserved
+          const doctype = "<!DOCTYPE html>\\n";
+          const html = doctype + document.documentElement.outerHTML;
+          const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        } catch (err) {
+          console.error('Save failed', err);
+          alert('Unable to save page automatically. As a fallback, you can copy the page source and save it into a file named "longest-rivers.html".');
+        }
+      }
+
+      saveBtn.addEventListener('click', function () {
+        // Generate a friendly filename with today's date
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        const filename = `longest-rivers-${y}${m}${d}.html`;
+        downloadHTML(filename);
+      });
+
+      printBtn.addEventListener('click', function () {
+        window.print();
+      });
+    })();
+  </script>
+</body>
+</html>
